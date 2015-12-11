@@ -1,0 +1,62 @@
+I"[(function() {
+  var showPage;
+
+  jQuery(function() {
+    $(".content li").on("click", function() {
+      var main, value;
+      value = this.id;
+      main = $('#' + value).attr('class');
+      return $(this).toggleClass("scrolling glyphicon-ok", function() {
+        if ($(this).hasClass("scrolling")) {
+          $("td." + main + "+" + value).show;
+          return $.get('/scrolls/show', {
+            outside: main,
+            inside: value
+          }).done(function(data, status, e) {
+            console.log(status);
+            $('#show_slider').append('<div id="slider_' + main + '_' + value + '"></div>');
+            return $('#slider_' + main + '_' + value).append(data);
+          });
+        } else {
+          main = main.split(" ");
+          $("div").remove('#slider_' + main[0] + '_' + value);
+          $('tr>td.' + main[0] + '+' + value).hide();
+          return console.log("td ." + main[0] + "+" + value);
+        }
+      });
+    });
+    return $('.header').click(function() {
+      var $content, $header;
+      $header = $(this);
+      $content = $header.next();
+      return $content.slideToggle(500);
+    });
+  });
+
+  $.getJSON("/cipher/search_suggestions").done(function(searchData) {
+    $('#search_suggest').bind('keydown', function(event) {
+      if (event.keyCode === $.ui.keyCode.TAB && $(this).autocomplete('instance').menu.active) {
+        event.preventDefault();
+      }
+    }).autocomplete({
+      minLength: 0,
+      source: function(request, response) {
+        response($.ui.autocomplete.filter(searchData, extractLast(request.term)));
+      },
+      focus: function() {
+        return false;
+      }
+    });
+  });
+
+  showPage = function(value) {
+    console.log(value);
+    return $.get('/cipher/output', {
+      name: value
+    }).done(function(data, status, e) {
+      $("#show_output").append(e.responseText);
+    });
+  };
+
+}).call(this);
+:ET

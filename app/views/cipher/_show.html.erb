@@ -1,0 +1,36 @@
+<table>
+<tr>
+	<th class="state">State</th>
+	<%#= "#{params[:cId]} under #{params[:cClass]}" %>
+	<% @state.forestarea.each do |x,y| %>
+		<th class='<%= "forestarea+#{x}" %>'><%= x %></th> 
+	<% end %>
+	<% @state.employment.each do |x,y| %>
+		<th class='<%= "employment+#{x}" %>'><%= x %></th> 
+	<% end %>
+	<% @state.literacyrate.each do |x,y| %>
+		<th class='<%= "literacyrate+#{x}" %>'><%= x %></th> 
+	<% end %>
+	<% @state.mentowoman.each do |x,y| %>
+		<th class='<%= "mentowoman+#{x}" %>'><%= x %></th> 
+	<% end %>
+</tr>
+<% for_view.each do |x| %>
+<tr>
+		<td class="state"><%= x.name %></td>
+	<% x.forestarea.each do |x,y| %>
+		<td class='<%= "forestarea+#{x}" %>'><%= y %></td>
+	<% end %>
+	<% x.employment.each do |x,y| %>
+		<td class='<%= "employment+#{x}" %>'><%= y %></td>
+	<% end %>
+	<% x.literacyrate.each do |x,y| %>
+		<td class='<%= "literacyrate+#{x}" %>'><%= y %></td>
+	<% end %>
+	<% x.mentowoman.each do |x,y| %>
+		<td class='<%= "mentowoman+#{x}" %>'><%= y %></td>
+	<% end %>
+</tr>
+<% end %>
+</table>
+<%#= will_paginate @@state %>

@@ -1,0 +1,31 @@
+<%# byebug %>
+<%#= "#{@outside} and #{@inside}" %>
+<%# @state.each do |x| %>
+<%#= x["#{@outside}"]["#{@inside}"] %>
+<%# end %>
+<% div_name = "_#{@outside}_#{@inside}" %>
+<p>
+  <label for="amount<%=div_name%>">Range:</label><input type="text" id="amount<%=div_name%>" class="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  <p>Criterion :<strong>Main: </strong><%=@outside%><strong> Child: </strong><%=@inside%></p>
+</p>
+<div type="range" id="slider-range<%=div_name%>" class="slider-range"></div>
+
+<script type="text/javascript">
+$(function() {
+  console.log('#slider-range<%= div_name %>');
+  $('#slider-range<%= div_name %>').slider({
+    range: true,
+    min: 0,
+    max: 100,
+    values: [0, 100],
+    stop: function(event, ui) {
+      $('#amount<%= div_name %>').val(ui.values[0] + '% - ' + ui.values[1]+'%');
+      $.get("/cipher/show",{min:ui.values[0],max:ui.values[1],
+        cClass:'<%="#{@outside}"%>',cId:'<%= "#{@inside}" %>'}).done(function(data){
+        $("#show_values").html(data);
+      });
+    }
+  });
+  $('#amount<%= div_name %>').val($('#slider-range<%= div_name %>').slider('values', 0) + '%' + ' - ' + $('#slider-range<%= div_name %>').slider('values', 1)+ '%');
+});
+</script>

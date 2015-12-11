@@ -1,0 +1,8 @@
+= react_component('ScrollsIndex',{initialStates: @state},{prerender: params[:noprerender].nil? })
+#show_slider <!-- Show Slider -->
+
+
+= react_component('Toggle',{prerender: true },id:"showing_values")
+= render partial: 'cipher/output'
+<!-- #show_values <!-- Showing Values -->
+#show_output <!-- Showing Suggestions -->
