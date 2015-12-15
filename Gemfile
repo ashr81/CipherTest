@@ -23,7 +23,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'select-multiple-rails'
 gem 'autoprefixer-rails'
-
+gem 'mongoid', '~>5'
+  gem 'bson_ext'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'breakpoint'
@@ -39,17 +40,10 @@ group :development, :test do
   gem 'byebug'
 end
 
-group :production do
-	gem 'pg'
-	gem 'rails_12factor'
-end
-
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   gem 'haml-rails'
-  gem 'mongoid', '~>5'
-  gem 'bson_ext'
   gem 'will_paginate'
 end
 
